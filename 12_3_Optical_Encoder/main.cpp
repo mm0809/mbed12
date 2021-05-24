@@ -24,7 +24,7 @@ int main() {
    last = 0;
 
    while(1) {
-      ThisThread::sleep_for(2000ms);
+      ThisThread::sleep_for(600ms);
       printf("encoder = %d\r\n", steps);
    }
 }
