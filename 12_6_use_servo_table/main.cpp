@@ -4,9 +4,7 @@
 
 BufferedSerial pc(USBTX, USBRX);
 DigitalIn encoder(D10);
-PwmOut servo(D11);
-
-Timer t;
+PwmOut servo(D11); Timer t;
 Ticker encoder_ticker;
 
 volatile int steps;
@@ -30,24 +28,26 @@ int main() {
 
    pc.set_baud(9600);
 
-   encoder_ticker.attach(&encoder_control, .01);
+   encoder_ticker.attach(&encoder_control, .001);
 
    servo.period_ms(20);
 
-   while(1) {
 
    //TODO: revise this value according to your result
-   servo_control(37.222);
-
+   servo_control(31.4);
    steps = 0;
    t.reset();
    t.start();
-
-   ThisThread::sleep_for(8000ms);
-
+   ThisThread::sleep_for(5000ms);
    float time = t.read();
+   printf("%1.3f\r\n", (float) steps * 6.5 * 3.14 / 64 / time);
 
-   printf("%1.3f\r\n", (float) steps * 6.5 * 3.14 / 32 / time);
-
-   }
+   servo_control(-46.5);
+   steps = 0;
+   t.reset();
+   t.start();
+   ThisThread::sleep_for(8000ms);
+   time = t.read();
+   printf("%1.3f\r\n", (float) steps * 6.5 * 3.14 / 64 / time);
+   servo_control(0);
 }

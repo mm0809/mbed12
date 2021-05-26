@@ -29,7 +29,7 @@ int main() {
 
    pc.set_baud(9600);
 
-   encoder_ticker.attach(&encoder_control, .01);
+   encoder_ticker.attach(&encoder_control, 0.0001);
 
    servo.period_ms(20);
 
@@ -46,7 +46,7 @@ int main() {
 
       float time = t.read();
 
-      printf("%1.3f\r\n", (float)steps * 6.5 * 3.14 / 32 / time);
+      printf("%1.3f\r\n", (float)steps * 6.5 * 3.14 / 64 / time);
 
       i += 30;
    }
